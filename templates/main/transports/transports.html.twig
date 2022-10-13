@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAFM Driver Management{% endblock %}
+{% block additionalStuff %}
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Transporte</h2>
+    </div>
+  </div>
+  <div class="row" style="padding-bottom: 2%;">
+    <div class="col">
+      <button type="button" class="btn btn-success" onclick="location.href='/transports/create'" name="button">Create Transport</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h3>Open transports</h3>
+      <small><i>Click on the rows to access the transport page</i></small>
+      <table class="table table-hover">
+        <thead>
+          <th>Alias</th>
+          <th>Det</th>
+          <th>Date</th>
+        </thead>
+        <tbody>
+        {% for transport in transports %}
+        <tr onclick="location.href='transports/{{transport.trspuuid}}'">
+          <th scope="row">{{transport.alias}}</th>
+          <td>{{transport.unit}}</td>
+          <td>{{transport.trspdate | date}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <h3>Closed transports</h3>
+    </div>
+  </div>
+</div>
+{% endblock %}

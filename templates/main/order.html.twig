@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAFM Driver Management{% endblock %}
+{% block additionalStuff %}
+<script src="js/orders.js"></script>
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Order Management</h2>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Person</span>
+          <input type="text" class="form-control" id="orderPerson" placeholder="Lastname Firstname">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Von</span>
+          <input type="datetime-local" class="form-control" id="orderFromTS">
+          <span class="input-group-text">Bis</span>
+          <input type="datetime-local" class="form-control" id="orderToTS">
+        </div>
+        <div class="mb-3" id="vehicleSelectionArea">
+          <button type="button" class="btn btn-primary" onclick="addVehicleSelect()">Add Vehicle</button>
+          <br>
+          <label for="selectFZ"> Fahrzeuge</label>
+        </div>
+        <div class="mb-3">
+          <button type="button" class="btn btn-success" name="crtOrder" onclick="createOrder()">Create Order</button>
+        </div>
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAFM Driver Management{% endblock %}
+{% block additionalStuff %}
+<script src="/js/loading.js"></script>
+<link rel="stylesheet" href="/css/trsploading.css">
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Loading management for transport {{transport.alias}}</h2>
+      <input type="hidden" id="trspuuid" value="{{transport.trspuuid}}">
+    </div>
+  </div>
+  <div class="row" style="padding-bottom: 2%;">
+    <div class="col">
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#palletModal">Create pallet</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+    <h4>Open pallets</h4>
+    <div class="pallet-removezone" ondrop="deletePalletDrop(event)" ondragover="allowDrop(event)">
+      <p>REMOVE PALLET</p>
+    </div>
+    <table class="table table-borderless">
+      <tbody>
+      {% for trspload in trsploadings %}
+      {% if trspload.vhc == "" %}
+      <tr>
+        <td>
+        <div id="load-{{trspload.id}}" ondragstart="drag(event)" draggable="true" class="palletObj">
+          <img draggable="false" src="/img/transport/pallet.png">
+          <p>{{trspload.name}}</p>
+        </div>
+        </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+
+    <div class="col-8">
+    <h4>Seated pallets</h4>
+      <div class="loadvhcs">
+        {% for vhc in vehicles %}
+        {% if vhc.type.palLength > 0 %}
+          <div class="vhc-loadingtable">
+            <h5>M{{vhc.licplate}}</h5>
+            <small>Max pallet height: {{vhc.type.palHeight}}</small>
+            <div class="arrow-up"></div>
+            <table class="pallet-table">
+              {% for y in 1..vhc.type.palLength %}
+                <tr>
+                  {% for x in 1..vhc.type.palWidth %}
+                    <td ondrop="PalletAddDrop(event)" ondragover="allowDrop(event)" id="pal-{{vhc.id}}-{{x}}-{{y}}" class="pallet-dropzone">
+                      {# <p>{{vhc.type.palHeight}}</p> #}
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade" id="palletModal" tabindex="-1" aria-labelledby="palletModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="palletModalLabel">Create loadable pallet</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3">
+          <label class="form-label" for="palletName">Pallet name / content</label>
+          <div class="col-sm-10">
+            <input class="form-control" type="text" name="palletName" id="palletName">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="form-label" for="palletHeight">Pallet height</label>
+          <div class="col-sm-10">
+            <input class="form-control" type="number" name="palletHeight" id="palletHeight">
+            </div>
+            </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" onclick="createPallet();" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  loadPallets();
+</script>
+{% endblock %}

@@ -1,0 +1,72 @@
+.palletObj{
+  border: 5px solid black;
+  display: inline-block;
+  width: 8em;
+}
+
+.palletObj img {
+  height: 7em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.palletObj p {
+  background: rgba(0,0,0,0.5);
+  padding: 0.3em;
+  color: white;
+  text-align: center;
+  margin: auto;
+}
+
+.pallet-table {
+  width: 16.4em;
+}
+
+.pallet-table td {
+  border-style: solid;
+  border-width: thin;
+  /* width: 5%; */
+  height: 8em;
+}
+
+.pallet-dropzone{
+  width: 8em;
+}
+
+.vhc-loadingtable{
+  padding-right: 4%;
+}
+
+.pallet-table td p{
+  margin: auto;
+  text-align: center;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 8.2em solid transparent;
+  border-right: 8.2em solid transparent;
+  border-bottom: 4em solid black;
+}
+
+.loadvhcs{
+  display: flex;
+}
+
+.pallet-removezone{
+  background: rgba(255, 0, 0, 0.3);
+  height: 20%;
+  width: 100%;
+  border-style: dashed;
+  display: flex;
+  justify-content: center;
+  border-radius: 1em;
+}
+
+.pallet-removezone p{
+  margin: auto;
+  text-align: center;
+  font-size: x-large;
+}

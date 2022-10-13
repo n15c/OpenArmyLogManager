@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAFM Driver Management{% endblock %}
+{% block additionalStuff %}
+<script src="js/vehicles.js"></script>
+{% endblock %}
+{% block body %}
+<div class="container">
+<script type="text/javascript">
+  var chosenVhcId = "";
+</script>
+  <div class="row">
+    <div class="col">
+      <h2>Vehicle Management</h2>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col">
+      <h4>All Vehicles</h4>
+      <h6>Click on the row to access the corresponding remarks</h6>
+        <table class="table table-hover">
+          <thead>
+            <th>M+</th>
+            <th>Model</th>
+            <th>Company</th>
+            <th>Delete Vehicle</th>
+          </thead>
+          <tbody>
+
+
+          {% for vehicle in vehicles %}
+          <tr onclick="showRemarks({{vehicle.id}},{{vehicle.licplate}})">
+            <th scope="row">{{vehicle.licplate}}</th>
+            <td>{{vehicle.type.manufacturer}} {{vehicle.type.getModel}}</td>
+            <td>{{vehicle.company.number}}</td>
+            <td><button class="btn btn-danger" onclick="deleteVehicle({{vehicle.id}})">Delete</button></td>
+          </tr>
+          {% endfor %}
+
+
+          </tbody>
+        </table>
+      </div>
+      <div class="col">
+      <h4>Create Vehicle</h4>
+        <form class="form">
+        <div class="input-group mb-3">
+          <span class="input-group-text">M+</span>
+          <input type="text" name="licplate" id="licplate" aria-label="M+" class="form-control">
+        </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="vhctype">Fz Typ</label>
+            <select class="form-select" name="vhctype" id="vhctype">
+              {% for vhctype in vhctypes %}
+              <option value="{{vhctype.id}}">{{vhctype.manufacturer}} {{vhctype.model}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="compsel">Company</label>
+            <select class="form-select" name="compsel" id="compsel">
+              {% for company in companies %}
+              <option value="{{company.id}}">{{company.number}}: {{company.getdescription}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <button type="button" onclick="createVhc()" class="btn btn-success" name="btncrtVehicle">Create</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="RemarkModal" tabindex="-1" aria-labelledby="RemarkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="RemarkModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeRemarkModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="RemarkModalContent">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeRemarkModal()">Close</button>
+          <button type="button" class="btn btn-primary" onclick="closeRemarkModal(); showCreateRemarkModal();">Create Remark</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="CreateRemarkModal" tabindex="-1" aria-labelledby="CreateRemarkModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="CreateRemarkModalLabel">Create Remark</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="hideCreateRemarkModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="RemarkModalContent">
+      <div id="CreateRemarkModalAlert" style="display: none;" class="alert alert-danger" role="alert">
+        ALERT
+      </div>
+        <div class="mb-3">
+          <label for="createRemarkAuthor" class="form-label">Author</label>
+          <input type="text" class="form-control" id="createRemarkAuthor" placeholder="Lastname Firstname">
+        </div>
+        <div class="mb-3">
+          <label for="createRemarkDescription" class="form-label">Description</label>
+          <textarea class="form-control" id="createRemarkDescription" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="hideCreateRemarkModal()">Close</button>
+        <button type="button" class="btn btn-primary" onclick="createRemark()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script type="text/javascript">
+    const remarkModal = new bootstrap.Modal(document.getElementById("RemarkModal"));
+    const createRemarkModal = new bootstrap.Modal(document.getElementById("CreateRemarkModal"));
+
+  </script>
+</div>
+{% endblock %}

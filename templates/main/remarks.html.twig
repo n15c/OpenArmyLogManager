@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <thead>
+    <th>Creation Date</th>
+    <th>Description</th>
+    <th>Author</th>
+    <th>Close Remark</th>
+  </thead>
+  <tbody>
+
+
+  {% for remark in remarks %}
+<tr {% if remark.closed == 0 %}class="table-danger"{% endif %}{% if remark.closed == 1 %}class="table-secondary"{% endif %}>
+    <th scope="row">{{remark.creationDate | date}}</th>
+    <td>{{remark.description}}</td>
+    <td>{{remark.person}}</td>
+  <td>{% if remark.closed == 0 %}<button class="btn btn-danger" onclick="closeRemark({{remark.id}},{{remark.vehicle.id}})">Close Remark</button>{% endif %}</td>
+  </tr>
+  {% endfor %}
+
+
+  </tbody>
+</table>

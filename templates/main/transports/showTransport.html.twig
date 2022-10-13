@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAFM Driver Management{% endblock %}
+{% block additionalStuff %}
+<script src="../js/showtransport.js"></script>
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+          <h2 id="transporttitle">{{transport.alias}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+      <h4>Options</h4>
+      <div class="input-group">
+        <button type="button" name="button" class="btn btn-warning" onclick="location.href='/transports/{{transport.trspuuid}}/loading'">Edit loading</button>
+        <button type="button" class="btn btn-danger" name="button" onclick="location.href='/transport/delete/{{transport.trspuuid}}'">Delete transport</button>
+      </div>
+    </div>
+
+    <h4>Details</h4>
+    <div class="mb-3">
+      <label for="trspuuid" class="form-label">Transport Identifier</label>
+      <input disabled type="text" class="form-control" name="trspuuid" id="trspuuid" value="{{transport.trspuuid}}">
+    </div>
+
+      <div class="mb-3">
+        <label for="trspalias" class="form-label">Transport Alias</label>
+        <input onchange="ajaxchangeval('alias',this.value)" type="text" class="form-control" name="trspalias" id="trspalias" value="{{transport.alias}}">
+      </div>
+
+      <div class="mb-3">
+        <label for="trspunit" class="form-label">Responsible Unit</label>
+        <input onchange="ajaxchangeval('unit',this.value)" type="text" class="form-control" name="trspunit" id="trspunit" value="{{transport.unit}}">
+      </div>
+
+      <div class="mb-3">
+        <label for="duration" class="form-label">Duration (hours)</label>
+        <input onchange="ajaxchangeval('duration',this.value)" type="text" class="form-control" name="trspunit" id="duration" value="{{transport.duration}}">
+      </div>
+
+      <div class="mb-3">
+        <label for="trspdate" class="form-label">Transport Date</label>
+        <input type="datetime-local" class="form-control" name="trspdate" id="trspdate" value="{{transport.trspdate | date("Y-m-d\\TH:i")}}">
+      </div>
+
+      <div class="mb-3">
+        <label for="trsploc" class="form-label">Transport Location</label>
+        <input onchange="ajaxchangeval('location',this.value)" type="text" class="form-control" name="trsploc" id="trsploc" value="{{transport.location}}">
+      </div>
+    </div>
+    <div class="col-8">
+    <style>
+      .dragtarget {
+        width: 350px;
+        min-height: 70px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+        z-index: 1000;
+      }
+      </style>
+      <h4>Available vehicles</h4>
+      <table class="table table-striped">
+      <thead>
+        <th>Vehicle</th>
+        <th>Available</th>
+        <th>Used</th>
+      </thead>
+      <tbody>
+      {% for type in vhctypes %}
+        <tr>
+          <td><img draggable="false" class="vhcpic" src="/img/vhc/{{type.id}}.svg"></td>
+          <td>
+            <ul ondrop="VhcDrop(event)" ondragover="allowDrop(event)" id="vhc-list-all-{{type.id}}" class="list-group dragtarget">
+            </ul>
+          </td>
+          <td><ul ondrop="VhcDrop(event)" ondragover="allowDrop(event)" id="vhc-list-selected-{{type.id}}" class="list-group dragtarget"></td>
+        </tr>
+      {%endfor%}
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  fetchAllVhc();
+</script>
+{% endblock %}

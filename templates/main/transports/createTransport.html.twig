@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAFM Driver Management{% endblock %}
+{% block additionalStuff %}
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Create transport</h3>
+      <form action="create" method="post">
+        <div class="mb-3">
+          <label for="trspalias" class="form-label">Transport Alias</label>
+          <input required type="text" class="form-control" name="trspalias" id="trspalias" placeholder="Kitchen Material">
+        </div>
+
+        <div class="mb-3">
+          <label for="trspunit" class="form-label">Responsible Unit</label>
+          <input required type="text" class="form-control" name="trspunit" id="trspunit" placeholder="Detachement 4">
+        </div>
+
+        <div class="mb-3">
+          <label for="trspdate" class="form-label">Transport Date</label>
+          <input required type="datetime-local" class="form-control" name="trspdate" id="trspdate" placeholder="11.11.2011 11:11">
+        </div>
+
+        <div class="mb-3">
+          <label for="trspduration" class="form-label">Transport Duration (h)</label>
+          <input required type="number" class="form-control" name="trspduration" id="trspduration" placeholder="2">
+        </div>
+
+        <div class="mb-3">
+          <label for="trsplocation" class="form-label">Transport Location</label>
+          <input required type="text" class="form-control" name="trsplocation" id="trsplocation" placeholder="ALC Grolley">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+</div>
+{% endblock %}

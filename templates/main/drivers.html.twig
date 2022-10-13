@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAFM Driver Management{% endblock %}
+{% block additionalStuff %}
+<script src="js/drivers.js"></script>
+{% endblock %}
+{% block body %}
+<div class="container">
+<div class="row">
+  <div class="col">
+    <h2>Driver Management</h2>
+  </div>
+</div>
+  <div class="row">
+    <div class="col">
+    <h4>All Drivers</h4>
+      <table class="table">
+        <thead>
+          <th>Lastname</th>
+          <th>Company</th>
+          <th>Categories</th>
+          <th>Delete Driver</th>
+        </thead>
+        <tbody>
+
+        {% for driver in drivers %}
+        <tr>
+          <th scope="row">{{driver.lastname}}</th>
+          <td>{{driver.drivercompany.getnumber}} {{driver.drivercompany.getdescription}}</td>
+        <td>{% for cat in driver.drivercats %}{{cat.catnr}} {% endfor %}</td>
+          {# <td><button class="btn btn-danger" onclick="location.href='/drivers/delete/{{driver.id}}'">Delete</button></td> #}
+          <td><button class="btn btn-danger" onclick="deleteDriver({{driver.id}})">Delete</button></td>
+        </tr>
+        {% endfor %}
+
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+    <h4>Create Driver</h4>
+      <div class="form">
+      <div class="input-group mb-3">
+        <span class="input-group-text">Name</span>
+        <input type="text" name="lastname" id="lastname" aria-label="Last name" class="form-control">
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="catsel">Categories</label>
+        <select size="7" multiple id="catsel" class="form-select" name="drivercats">
+        {% for cat in drivercats %}
+        <option value="{{cat.id}}">{{cat.catnr}}</option>
+        {% endfor %}
+        </select>
+        </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="compsel">Company</label>
+          <select class="form-select" name="compsel" id="compsel">
+            {% for company in companies %}
+            <option value="{{company.id}}">{{company.number}}: {{company.getdescription}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" onclick="return createDriver()" class="btn btn-success" name="btncrtDriver">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

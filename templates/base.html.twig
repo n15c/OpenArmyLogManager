@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        {% endblock %}
+        {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="/js/appfuncs.js"></script>
+        {% endblock %}
+        {% block additionalStuff %}
+        {% endblock %}
+
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-print-none" style="margin-bottom: 2%;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">OAFM</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/keys">Key Management</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/drivers">Drivers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/vehicles">Vehicles</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/orders">Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/transports">Transports</a>
+              </li>
+              {% if is_granted('ROLE_SUPERADMIN') %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin" tabindex="-1" aria-disabled="true">Administrator</a>
+              </li>
+              {% endif %}
+            </ul>
+
+            <div class="d-flex">
+              <div class="dropdown show" style="padding-right: 2%;">
+                <select id="selectedCompany" onchange="changeCompany()" class="form-select dropdown-menu-end" aria-label="Company Selection">
+                  {% for comp in companies %}
+                <option {% if comp.number == selcomp.number %}selected{% endif %} value="{{comp.number}}">{{ comp.number}}: {{comp.description}}</option>
+                {% endfor %}
+                </select>
+              </div>
+
+              <div class="dropdown show" style="padding-right: 14%; right:0;">
+                <a class="btn btn-primary  dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{curruser.getUname }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="/logout">Abmelden</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="infoalert" style="display: none;" class="alert alert-danger" role="alert">
+        ALERT
+      </div>
+      <div id="infogood" style="display: none;" class="alert alert-success" role="alert">
+        SUCCESS
+      </div>
+
+      {% block body %}{% endblock %}
+      {% block endjavascripts %}
+      {% endblock %}
+    </body>
+</html>

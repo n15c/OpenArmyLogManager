@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAFM{% endblock %}
+{% block additionalStuff %}
+<script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col" style="margin-top: 5%;">
+      <h1>Welcome to OAFM</h1>
+      <h5>Your fleet and transport manager for military purposes</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h1>Fahrzeugzustand</h1>
+      <div id="operationalChart"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+var opvhc = {
+  x: [
+    {% for key in vhcop|keys %}'{{ key }}',{% endfor %}
+  ],
+  y: [
+    {% for val in vhcop %}'{{ val | json_encode }}',{% endfor %}
+  ],
+  name: 'Operational',
+  type: 'bar'
+};
+
+var nopvhc = {
+  x: [
+    {% for key in vhcnop|keys %}'{{ key }}',{% endfor %}
+  ],
+  y: [
+    {% for val in vhcnop %}'{{ val | json_encode }}',{% endfor %}
+  ],
+  name: 'Not Operational',
+  type: 'bar'
+};
+var data = [opvhc,nopvhc];
+var layout = {barmode: 'stack'};
+Plotly.newPlot('operationalChart', data, layout);
+</script>
+{% endblock %}

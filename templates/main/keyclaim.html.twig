@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAFM Driver Management{% endblock %}
+{% block additionalStuff %}
+<script src="js/keyclaim.js"></script>
+{% endblock %}
+{% block body %}
+<div class="container">
+<div class="row">
+  <div class="col">
+    <h2>Key Handover</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-3">
+  <form class="form">
+    <div class="input-group mb-3">
+      <span class="input-group-text">M+</span>
+      <input type="text" autocomplete="off" name="licplate" list="vehicles" id="licplate" aria-label="M+" class="form-control">
+      <datalist id="vehicles">
+      {% for vehicle in vehicles %}
+        <option value="{{vehicle.licplate}}">
+      {% endfor %}
+      </datalist>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Receipient</span>
+      <input type="text" autocomplete="off" list="drivers" name="recname" id="recname" aria-label="Receipient" class="form-control">
+      <datalist id="drivers">
+      {% for driver in drivers %}
+        <option value="{{driver.lastname}}">
+      {% endfor %}
+      </datalist>
+    </div>
+    <button type="button" onclick="issueKey()" class="btn btn-success" name="btncrtKC">Create</button>
+  </form>
+  </div>
+  <div class="col-3"></div>
+  <div class="col-3"></div>
+  <span style="padding-bottom: 3%;"></span>
+</div>
+  <div class="row">
+    <div class="col">
+    <h4>Currently given keys</h4>
+      <table class="table">
+        <thead>
+          <th>Vehicle</th>
+          <th>Person</th>
+          <th>Claim Date</th>
+          <th>Key Return</th>
+        </thead>
+        <tbody>
+        {% for claim in openkeyclaims %}
+        {% if claim.vehicle.company == selcomp %}
+        <tr>
+          <td>{{claim.vehicle.licplate}}</td>
+          <td>{{claim.person}}</td>
+          <td>{{claim.claimingdate | date}}</td>
+          <td><button class="btn btn-danger" onclick="returnKey({{claim.id}})">Return</button></td>
+        </tr>
+      {%  endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <h4>All Key Transactions</h4>
+      <table class="table">
+        <thead>
+          <th>Vehicle</th>
+          <th>Person</th>
+          <th>Claim Date</th>
+          <th>Return Date</th>
+        </thead>
+        <tbody>
+        {% for claim in returnedkeyclaims %}
+        {% if claim.ReceptionDate != NULL %}
+        <tr>
+          <td>{{claim.vehicle.licplate}}</td>
+          <td>{{claim.person}}</td>
+          <td>{{claim.claimingdate | date}}</td>
+          <td>{{claim.ReceptionDate | date}}</td>
+        </tr>
+      {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
