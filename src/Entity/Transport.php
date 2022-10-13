@@ -44,6 +44,10 @@ class Transport
     #[ORM\Column(length: 255)]
     private ?string $location = null;
 
+    #[ORM\ManyToOne(inversedBy: 'transports')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Company $company = null;
+
     public function __construct()
     {
         $this->vhc = new ArrayCollection();
@@ -191,6 +195,18 @@ class Transport
     public function setLocation(string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }

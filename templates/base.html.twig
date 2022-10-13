@@ -25,7 +25,43 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+              <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 Persönliches
+               </a>
+               <ul class="dropdown-menu">
+                 <li><a class="dropdown-item" href="/drivers">Drivers</a></li>
+               </ul>
+             </li>
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Ausbildung
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item disabled" href="/incontrol">Instruction control</a></li>
+              </ul>
+            </li>
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Logistik
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/vehicles">Vehicles</a></li>
+                <li><a class="dropdown-item" href="/keys">Key Management</a></li>
+                <li><a class="dropdown-item" href="/transports">Transports</a></li>
+                <li><a class="dropdown-item disabled" href="/orders">Orders</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Führung
+             </a>
+             <ul class="dropdown-menu">
+               <li><a class="dropdown-item" href="/timetable">Timetables</a></li>
+             </ul>
+           </li>
+
+              {# <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
               </li>
               <li class="nav-item">
@@ -47,7 +83,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/admin" tabindex="-1" aria-disabled="true">Administrator</a>
               </li>
-              {% endif %}
+              {% endif %} #}
             </ul>
 
             <div class="d-flex">

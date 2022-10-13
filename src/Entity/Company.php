@@ -30,11 +30,15 @@ class Company
     #[ORM\OneToMany(mappedBy: 'company', targetEntity: User::class)]
     private Collection $users;
 
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Transport::class)]
+    private Collection $transports;
+
     public function __construct()
     {
         $this->drivers = new ArrayCollection();
         $this->vehicles = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->transports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,6 +154,36 @@ class Company
             // set the owning side to null (unless already changed)
             if ($user->getCompany() === $this) {
                 $user->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transport>
+     */
+    public function getTransports(): Collection
+    {
+        return $this->transports;
+    }
+
+    public function addTransport(Transport $transport): self
+    {
+        if (!$this->transports->contains($transport)) {
+            $this->transports->add($transport);
+            $transport->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransport(Transport $transport): self
+    {
+        if ($this->transports->removeElement($transport)) {
+            // set the owning side to null (unless already changed)
+            if ($transport->getCompany() === $this) {
+                $transport->setCompany(null);
             }
         }
 

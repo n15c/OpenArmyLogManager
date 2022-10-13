@@ -71,6 +71,7 @@ class TransportController extends AbstractController
         $newTransport->setDuration($request->get("trspduration"));
         $newTransport->setLocation($request->get("trsplocation"));
         $newTransport->setCompleted(0);
+        $newTransport->setCompany($selcomp);
         $entityManager->persist($newTransport);
         $entityManager->flush();
         return $this->redirect('/transports/'.$newTransport->gettrspuuid());
