@@ -55,7 +55,7 @@ class TimetableController extends AbstractController
     $curruser = $this->getUser();
     $selcomp = $curruser->getCompany();
     $repository = $this->getDoctrine()->getRepository(Vehicle::class);
-    $vehiclesObj = $repository->findBy(['company'=>$selcomp]);
+    $vehiclesObj = $repository->findBy(['company'=>array($selcomp,0)]);
     $vehicles = [];
     foreach ($vehiclesObj as $vehicle) {
       $vhc = [];
@@ -77,7 +77,7 @@ class TimetableController extends AbstractController
     $curruser = $this->getUser();
     $selcomp = $curruser->getCompany();
     $repository = $this->getDoctrine()->getRepository(Vehicle::class);
-    $vehiclesObj = $repository->findBy(['company'=>$selcomp]);
+    $vehiclesObj = $repository->findBy(['company'=>array($selcomp,0)]);
     $transports = [];
     foreach ($vehiclesObj as $vehicle) {
       $vhctrsps = $vehicle->getTransports();

@@ -281,6 +281,19 @@ class TransportController extends AbstractController
 
     }
 
+    /**
+    * @Route("/public/transport/{uuid}", name="app_pubtransport")
+    */
+    public function publicTransportPage(string $uuid): Response
+    {
+      $repository = $this->getDoctrine()->getRepository(Transport::class);
+      $transport = $repository->findOneBy(['trspuuid'=>$uuid]);
+
+      return $this->render('main/transports/publictransport.html.twig', [
+        'transport' => $transport
+      ]);
+    }
+
   //
   // /**
   // * @Route("/drivers/delete/{id}", name="app_ddriver")

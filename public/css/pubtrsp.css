@@ -1,0 +1,9 @@
+@media print {
+  .printhide {
+    display: none;
+  }
+}
+
+.container{
+  padding-top: 4%;
+}

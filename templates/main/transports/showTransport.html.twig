@@ -15,12 +15,17 @@
     <div class="col">
       <div class="mb-3">
       <h4>Options</h4>
-      <div class="input-group">
-        <button type="button" name="button" class="btn btn-warning" onclick="location.href='/transports/{{transport.trspuuid}}/loading'">Edit loading</button>
+      <div class="input-group" role="group">
+        <button type="button" name="btn-public" class="btn btn-primary" onclick="location.href='/public/transport/{{transport.trspuuid}}'">Show Public Page</button>
+        <button type="button" name="btn-public" class="btn btn-secondary" onclick="location.href='https://www.google.com/maps/search/{{transport.location}}'">Show Location</button>
+        <button type="button" name="btn-edit" class="btn btn-warning" onclick="location.href='/transports/{{transport.trspuuid}}/loading'">Edit loading</button>
         <button type="button" class="btn btn-danger" name="button" onclick="location.href='/transport/delete/{{transport.trspuuid}}'">Delete transport</button>
       </div>
     </div>
-
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
     <h4>Details</h4>
     <div class="mb-3">
       <label for="trspuuid" class="form-label">Transport Identifier</label>

@@ -7,24 +7,24 @@
 {% endblock %}
 {% block body %}
 <div class="container">
-  <div class="row">
+  <div class="row noprint">
     <div class="col">
       <h2>Loading management for transport {{transport.alias}}</h2>
       <input type="hidden" id="trspuuid" value="{{transport.trspuuid}}">
     </div>
   </div>
-  <div class="row" style="padding-bottom: 2%;">
+  <div class="row noprint" style="padding-bottom: 2%;">
     <div class="col">
       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#palletModal">Create pallet</button>
     </div>
   </div>
   <div class="row">
-    <div class="col-3">
+    <div class="col-3 noprint">
     <h4>Open pallets</h4>
     <div class="pallet-removezone" ondrop="deletePalletDrop(event)" ondragover="allowDrop(event)">
       <p>REMOVE PALLET</p>
     </div>
-    <table class="table table-borderless">
+    <table class="table table-borderless avail-pallets">
       <tbody>
       {% for trspload in trsploadings %}
       {% if trspload.vhc == "" %}
@@ -50,7 +50,7 @@
           <div class="vhc-loadingtable">
             <h5>M{{vhc.licplate}}</h5>
             <small>Max pallet height: {{vhc.type.palHeight}}</small>
-            <div class="arrow-up"></div>
+            <div class="arrow-up" style="border-left-width:{{vhc.type.palWidth*4.1}}em;border-right-width:{{vhc.type.palWidth*4.1}}em;"></div>
             <table class="pallet-table">
               {% for y in 1..vhc.type.palLength %}
                 <tr>

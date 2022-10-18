@@ -27,12 +27,12 @@
   border-style: solid;
   border-width: thin;
   /* width: 5%; */
-  height: 8em;
+  height: 9.7em;
 }
 
 .pallet-dropzone{
-  width: 8em;
-  min-width: 8em;
+  width: 8.2em;
+  min-width: 8.2em;
 }
 
 .vhc-loadingtable{
@@ -71,4 +71,21 @@
   margin: auto;
   text-align: center;
   font-size: x-large;
+}
+
+@media print {
+  h2{
+    display: none;
+  }
+
+  .noprint{
+    display: none;
+  }
+  /* body {transform: scale(.7);} */
+  @page {
+    size: A3;
+  }
+  .vhc-loadingtable, table {
+    page-break-inside: avoid;
+  }
 }
