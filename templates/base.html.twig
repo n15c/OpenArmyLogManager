@@ -61,6 +61,12 @@
                <li><a class="dropdown-item" href="/timetable">Timetables</a></li>
              </ul>
            </li>
+           {% if is_granted('ROLE_SUPERADMIN') %}
+            <li class="nav-item">
+              <a class="nav-link" href="/admin" tabindex="-1" aria-disabled="true">Administrator</a>
+            </li>
+            {% endif %}
+
 
               {# <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
