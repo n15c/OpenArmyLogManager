@@ -24,6 +24,9 @@
         <div class="input-group" role="group">
           <button type="button" name="btn-public" class="btn btn-primary printhide" onclick="location.href='https://www.google.com/maps/search/{{transport.location}}'">Show Location</button>
           <button type="button" name="btn-public" class="btn btn-secondary printhide" onclick="window.print()">Print Page</button>
+        {% if transport.completed == 0 %}
+        <button type="button" name="btn-public" class="btn btn-success printhide" onclick="location.href='/public/transport/{{transport.trspuuid}}/setdone'">Mark as done</button>
+        {% endif %}
         </div>
         <table class="table">
           <tbody>
@@ -33,7 +36,7 @@
             </tr>
             <tr>
               <td>Estimated Duration</td>
-              <td>{{transport.duration}}</td>
+              <td>{{transport.duration}} hours</td>
             </tr>
             <tr>
               <td>Responsible Unit</td>
@@ -44,7 +47,7 @@
               <td>
                 <ul class="list-group list-group-flush">
                   {% for vehicle in transport.vehicles %}
-                  <li class="list-group-item">M{{vehicle.licplate}}</li>
+                  <li class="list-group-item">M{{vehicle.licplate}}: {{vehicle.type.model}}</li>
                   {% endfor %}
                 </ul>
               </td>

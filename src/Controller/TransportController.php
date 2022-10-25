@@ -294,6 +294,26 @@ class TransportController extends AbstractController
       ]);
     }
 
+    /**
+    * @Route("/public/transport/{uuid}/setdone", name="app_stdtrsp")
+    */
+    public function setDoneTransport(string $uuid): Response
+    {
+      $response = new Response();
+
+      $repository = $this->getDoctrine()->getRepository(Transport::class);
+      $entityManager = $this->getDoctrine()->getManager();
+
+      $transport = $repository->findOneBy(['trspuuid'=>$uuid]);
+      $transport->setCompleted(true);
+      $entityManager->flush();
+      // $response->setStatusCode(200);
+      // $response->setContent($id);
+      // return $response;
+      return $this->redirectToRoute('app_pubtransport',['uuid'=>$uuid]);
+
+    }
+
   //
   // /**
   // * @Route("/drivers/delete/{id}", name="app_ddriver")
