@@ -165,7 +165,7 @@ class VehicleController extends AbstractController
   }
 
   /**
-  * @Route("/vehicles/remark/create", name="app_cvehicle")
+  * @Route("/vehicles/remark/create", name="app_crvehicle")
   */
   public function createRemark(): Response
   {
