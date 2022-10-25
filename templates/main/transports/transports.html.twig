@@ -27,17 +27,38 @@
         </thead>
         <tbody>
         {% for transport in transports %}
+        {% if transport.completed == 0 %}
         <tr onclick="location.href='transports/{{transport.trspuuid}}'">
           <th scope="row">{{transport.alias}}</th>
           <td>{{transport.unit}}</td>
           <td>{{transport.trspdate | date}}</td>
         </tr>
+        {% endif %}
         {% endfor %}
         </tbody>
       </table>
     </div>
     <div class="col">
       <h3>Closed transports</h3>
+      <small><i>Click on the rows to access the transport page</i></small>
+      <table class="table table-hover">
+        <thead>
+          <th>Alias</th>
+          <th>Det</th>
+          <th>Date</th>
+        </thead>
+        <tbody>
+        {% for transport in transports %}
+        {% if transport.completed == 1 %}
+        <tr onclick="location.href='transports/{{transport.trspuuid}}'">
+          <th scope="row">{{transport.alias}}</th>
+          <td>{{transport.unit}}</td>
+          <td>{{transport.trspdate | date}}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
