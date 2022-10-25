@@ -67,6 +67,7 @@ class VehicleController extends AbstractController
 
       $repository = $this->getDoctrine()->getRepository(Company::class);
       $newVehicle->setCompany($repository->find($data["company"]));
+      $newVehicle->setOperational(true);
 
       $entityManager->persist($newVehicle);
       $entityManager->flush();
