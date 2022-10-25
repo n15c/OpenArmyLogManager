@@ -117,10 +117,15 @@ class LoadingController extends AbstractController
     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
     $entityManager = $this->getDoctrine()->getManager();
 
+    $repository = $this->getDoctrine()->getRepository(Transport::class);
+    $trsp = $repository->findOneBy(['trspuuid'=>$uuid]);
+
     $qb = $entityManager->createQueryBuilder();
     $loadings = $qb->select("t")
     ->from('App\Entity\Trsploading','t')
     ->where($qb->expr()->isNotNull("t.vhc"))
+    ->andWhere('t.transport = :trspid')
+    ->setParameter('trspid', $trsp->getId())
     ->getQuery()->getResult();
 
     $loadingarray = array();
