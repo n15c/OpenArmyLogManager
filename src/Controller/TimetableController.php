@@ -60,7 +60,7 @@ class TimetableController extends AbstractController
     foreach ($vehiclesObj as $vehicle) {
       $vhc = [];
       $vhc["id"] = $vehicle->getID();
-      $vhc["content"] = $vehicle->getLicplate();
+      $vhc["content"] = $vehicle->getType()->getModel() . ": " . $vehicle->getLicplate();
       $vhc["type"] = $vehicle->getType()->getid();
 
       $vehicles[] = $vhc;
