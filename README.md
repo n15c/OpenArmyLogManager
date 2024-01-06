@@ -1,5 +1,11 @@
 # OpenArmyLogManager
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![PHP Version](https://img.shields.io/badge/PHP-7.4%20%2F%208.0-8892BF.svg)](https://php.net/)
+[![Symfony Version](https://img.shields.io/badge/Symfony-4.x%20%2F%205.x-000000.svg)](https://symfony.com/)
+[![GitHub Issues](https://img.shields.io/github/issues/n15c/OpenArmyLogManager.svg)](https://github.com/n15c/OpenArmyLogManager/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/n15c/OpenArmyLogManager.svg)](https://github.com/n15c/OpenArmyLogManager/pulls)
+
 OpenArmyLogManager is a web-based application built with PHP and Symfony, designed to facilitate and manage various logistic operations within a military company's logistic unit.
 
 ## Features
